@@ -24,11 +24,14 @@ def home():
     destination_data = mongo.db.collection.find_one()
 
     # Return template and data
-    return render_template("index.html", news_title = destination_data['news_title'], 
+    try: 
+        return render_template("index.html", news_title = destination_data['news_title'], 
                                          news_p = destination_data['news_p'], 
                                          featured_image = destination_data['featured_image'], 
                                          mars_tweet = destination_data['mars_tweet'], 
                                          hemisphere_image_urls = destination_data['hemisphere_image_urls'], )
+    except: 
+        return redirect("/scrape")
 
     
 # Route that will trigger the scrape function
